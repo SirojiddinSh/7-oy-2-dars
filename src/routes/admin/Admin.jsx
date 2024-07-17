@@ -3,8 +3,6 @@ import { useState } from "react";
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    UserOutlined,
-    VideoCameraOutlined,
     ShoppingCartOutlined,
     ProductOutlined,
 } from "@ant-design/icons";
@@ -47,9 +45,6 @@ const Admin = () => {
                 <Layout>
                     <Header
                         style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "10px",
                             paddingLeft: "0",
                         }}
                     >
@@ -71,29 +66,16 @@ const Admin = () => {
                             }}
                         />
                         <Search
+                            style={{
+                                width: "600px",
+                                marginLeft: "440px",
+                                marginTop: "12px",
+                            }}
                             placeholder="Search text"
                             allowClear
                             enterButton="Search"
                             size="large"
                             onChange={(e) => setSearch(e.target.value)}
-                        />
-                        <Menu
-                            style={{ width: "250px" }}
-                            theme="dark"
-                            mode="horizontal"
-                            defaultSelectedKeys={["1"]}
-                            items={[
-                                {
-                                    key: "1",
-                                    icon: <UserOutlined />,
-                                    label: "nav 1",
-                                },
-                                {
-                                    key: "2",
-                                    icon: <VideoCameraOutlined />,
-                                    label: "nav 2",
-                                },
-                            ]}
                         />
                     </Header>
                     <Content

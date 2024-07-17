@@ -2,7 +2,7 @@ import { Table, Button } from "antd";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const Products = ({ search }) => {
+const Products = () => {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products);
     const loading = useSelector((state) => state.loading);
@@ -13,7 +13,11 @@ const Products = ({ search }) => {
                 dispatch({ type: "LOADING_PRODUCTS" });
                 const response = await fetch("https://dummyjson.com/recipes");
                 const data = await response.json();
-                const addedProduct = data.recipes;
+                const addedProduct = data.recipes.map((product) => ({
+                    ...product,
+                    added: false,
+                }));
+
                 dispatch({ type: "SET_PRODUCTS", payload: addedProduct });
             } catch (err) {
                 console.log(err);
@@ -25,6 +29,10 @@ const Products = ({ search }) => {
 
     const addToMenu = (product) => {
         dispatch({ type: "ADD_TO_MENU", payload: { ...product, added: true } });
+        localStorage.setItem(
+            "menuProducts",
+            JSON.stringify([...products, product])
+        );
     };
 
     const columns = [
@@ -44,7 +52,11 @@ const Products = ({ search }) => {
         {
             title: "Add to menu",
             render: (product) => (
-                <Button type="primary" onClick={() => addToMenu(product)}>
+                <Button
+                    disabled={product.added}
+                    type="primary"
+                    onClick={() => addToMenu(product)}
+                >
                     Add
                 </Button>
             ),

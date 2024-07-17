@@ -26,7 +26,11 @@ const Menu = () => {
         {
             title: "Remove from menu",
             render: (product) => (
-                <Button type="primary" onClick={() => removeFromMenu(product)}>
+                <Button
+                    type="primary"
+                    onClick={() => removeFromMenu(product)}
+                    style={{ background: "red" }}
+                >
                     Remove
                 </Button>
             ),
