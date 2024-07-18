@@ -8,13 +8,18 @@ import {
 } from "@ant-design/icons";
 import { Button, Layout, Menu, Input } from "antd";
 import { NavLink, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const { Header, Sider, Content } = Layout;
 const { Search } = Input;
 
 const Admin = () => {
+    const dispatch = useDispatch();
     let [collapsed, setCollapsed] = useState(false);
-    const [search, setSearch] = useState("");
+
+    const onSearch = (value) => {
+        dispatch({ type: "SEARCH", payload: value });
+    };
 
     return (
         <>
@@ -75,7 +80,7 @@ const Admin = () => {
                             allowClear
                             enterButton="Search"
                             size="large"
-                            onChange={(e) => setSearch(e.target.value)}
+                            onChange={(e) => onSearch(e.target.value)}
                         />
                     </Header>
                     <Content
@@ -86,7 +91,7 @@ const Admin = () => {
                             background: "lightgray",
                         }}
                     >
-                        <Outlet search={search} />
+                        <Outlet />
                     </Content>
                 </Layout>
             </Layout>

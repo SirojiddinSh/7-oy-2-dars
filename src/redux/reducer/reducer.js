@@ -2,6 +2,7 @@ export const initialState = {
     products: [],
     menuProducts: JSON.parse(localStorage.getItem("menuProducts")) || [],
     loading: false,
+    search: "",
 };
 
 const reducer = (state = initialState, action) => {
@@ -38,6 +39,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 menuProducts: remove,
+            };
+        case "SEARCH":
+            return {
+                ...state,
+                search: action.payload,
             };
         default:
             return state;

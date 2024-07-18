@@ -6,6 +6,8 @@ const Products = () => {
     const dispatch = useDispatch();
     const products = useSelector((state) => state.products);
     const loading = useSelector((state) => state.loading);
+    const search = useSelector((state) => state.search);
+    console.log(search);
 
     useEffect(() => {
         const loadData = async () => {
@@ -67,7 +69,9 @@ const Products = () => {
         <div>
             <Table
                 columns={columns}
-                dataSource={products.map((item) => ({ ...item, key: item.id }))}
+                dataSource={products.filter((product) =>
+                    product.name.toLowerCase().includes(search.toLowerCase())
+                )}
                 loading={loading}
                 size="middle"
             />
